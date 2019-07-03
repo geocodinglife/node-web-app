@@ -9,7 +9,7 @@ const expressLayouts = require('express-ejs-layouts')
 const bodyParser     = require('body-parser')
 const indexRouter    = require('./routes/index')
 
-const authorRouter = require('./routes/authors')
+const authorRouter   = require('./routes/authors')
 
 application.set('view engine', 'ejs')
 application.set('views', __dirname + '/views')
