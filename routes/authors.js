@@ -1,9 +1,19 @@
 const  express = require('express')
-const router = express.Router()
-const Author = require('../models/author')
+const router   = express.Router()
+const Author   = require('../models/author')
+
 // All authors routes
-router.get('/', (request, respond) => {
-  respond.render('authors/index')
+router.get('/', async (request, respond) => {
+  let searchOptions = {}
+  if (request.query.name != null && request.query.name !== '') {
+    searchOptions.name = new RegExp(request.query.name, 'i')
+  }
+  try {
+    const authors = await Author.find(searchOptions)
+    respond.render('authors/index', { authors: authors, searchOptions: request.query  })
+  } catch (error) {
+    respond.redirect('/')
+  }
 })
 
 //New author
